@@ -186,7 +186,7 @@ void saveWave_(FILE * fpI, wavSound *s, FILE * fpO, char * name, int MaxSamples)
 
 	/* Is it a stereo file ? */
 	if (s->numChannels == 2) {
-		fprintf(fpO, "const signed char %s_dataL[]= {", name);
+		fprintf(fpO, "const short %s_dataL[]= {", name);
 		/* 8-bit ? convert 0-255 to -128-127 */
 		if (s->bitsPerSample == 8) {
 			for (i = 0 ; i < realLength ; i++) {
@@ -199,7 +199,7 @@ void saveWave_(FILE * fpI, wavSound *s, FILE * fpO, char * name, int MaxSamples)
 			// reset file position;
 			fseek(fpI, filepos, SEEK_SET);
 			fprintf(fpO, "};\n\n");
-			fprintf(fpO, "const signed char %s_dataR[]={", name);
+			fprintf(fpO, "const short %s_dataR[]={", name);
 			for (i = 0 ; i < realLength ; i++) {
 				// read left output and forget about it
 				fread(&stuff8, sizeof(unsigned char), 1, fpI);
@@ -224,7 +224,7 @@ void saveWave_(FILE * fpI, wavSound *s, FILE * fpO, char * name, int MaxSamples)
 			// reset file position;
 			fseek(fpI, filepos, SEEK_SET);
 			fprintf(fpO, "};\n\n");
-			fprintf(fpO, "const signed char %s_dataR[]={", name);
+			fprintf(fpO, "const short %s_dataR[]={", name);
 			for (i = 0 ; i < realLength ; i++) {
 				// read left output and forget about it
 				fread(&stuff8, sizeof(char), 1, fpI);
@@ -240,7 +240,7 @@ void saveWave_(FILE * fpI, wavSound *s, FILE * fpO, char * name, int MaxSamples)
 	/* Monaural file */
 	/** PATCHED FOR ARDUINO **/
 	else {
-		fprintf(fpO, "const signed char %s_data[] PROGMEM ={", name);
+		fprintf(fpO, "const short %s_data[] ={", name);
 		if (s->bitsPerSample == 8) {
 			for (i = 0 ; i < realLength ; i++) {
 				fread(&stuff8, sizeof(unsigned char), 1, fpI);
