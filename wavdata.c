@@ -182,11 +182,11 @@ void saveWave_(FILE * fpI, wavSound *s, FILE * fpO, char * name, int MaxSamples)
     if (MaxSamples != -1 && realLength > MaxSamples)
         realLength = MaxSamples;
 
-	fprintf(fpO, "const int %s_length = %d;\n\n", name, realLength);
+	fprintf(fpO, "const unsigned long %s_length = %d;\n\n", name, realLength);
 
 	/* Is it a stereo file ? */
 	if (s->numChannels == 2) {
-		fprintf(fpO, "const short %s_dataL[]= {", name);
+		fprintf(fpO, "const short %s_data[]= {", name);
 		/* 8-bit ? convert 0-255 to -128-127 */
 		if (s->bitsPerSample == 8) {
 			for (i = 0 ; i < realLength ; i++) {
